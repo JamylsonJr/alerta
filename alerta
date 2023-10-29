@@ -1,0 +1,248 @@
+# Importar bibliotecas necessárias
+import os
+import pandas as pd
+from django.core.mail import EmailMessage
+from django.db import connections
+
+# Definir constantes
+APP_PATH = os.path.dirname(__file__)
+DATABASE_NAME = "app_database"
+
+# Definir funções
+
+def importar_planilha(arquivo):
+  """
+  Importa uma planilha em qualquer formato (.xls ou .csv, por exemplo).
+
+  Args:
+    arquivo: O caminho para o arquivo da planilha.
+
+  Returns:
+    O objeto pandas DataFrame com os dados da planilha, ou `None` se o arquivo não existir.
+  """
+
+  # Verificar se o arquivo existe
+  if not os.path.exists(arquivo):
+    return None
+
+  # Verificar o formato do arquivo
+  try:
+    format = pd.guess_format(arquivo)
+  except ValueError as e:
+    return None
+
+  if format is None:
+    return None
+
+  # Importar o arquivo
+  if format == "xls":
+    df = pd.read_excel(arquivo)
+  elif format == "csv":
+    df = pd.read_csv(arquivo)
+
+  return df
+import datetime
+
+def analisar_dados(df):
+  """
+  Analisa os dados da planilha e retorna um DataFrame com os casos vencidos.
+
+  Args:
+    df: O objeto pandas DataFrame com os dados da planilha.
+
+  Returns:
+    O DataFrame com os casos vencidos.
+  """
+
+  # Importar o módulo datetime
+  import datetime
+
+  def importar_planilha(arquivo):
+    """
+    Importa uma planilha em qualquer formato (.xls ou .csv, por exemplo).
+
+    Args:
+      arquivo: O caminho para o arquivo da planilha.
+
+    Returns:
+      O objeto pandas DataFrame com os dados da planilha, ou `None` se o arquivo não existir.
+    """
+
+    # Verificar se o arquivo existe
+    if not os.path.exists(arquivo):
+      return None
+
+    # Verificar o formato do arquivo
+    try:
+      format = pd.guess_format(arquivo)
+    except ValueError as e:
+      return None
+
+    if format is None:
+      return None
+
+    # Importar o arquivo
+    if format == "xls":
+      df = pd.read_excel(arquivo)
+    elif format == "csv":
+      df = pd.read_csv(arquivo)
+
+    return df
+
+  def analisar_dados(df):
+    """
+    Analisa os dados da planilha e retorna um DataFrame com os casos vencidos.
+
+    Args:
+      df: O objeto pandas DataFrame com os dados da planilha.
+
+    Returns:
+      O DataFrame com os casos vencidos.
+    """
+
+    # Importar o módulo datetime
+import datetime
+
+def importar_planilha(arquivo):
+  """
+  Importa uma planilha em qualquer formato (.xls ou .csv, por exemplo).
+
+  Args:
+    arquivo: O caminho para o arquivo da planilha.
+
+  Returns:
+    O objeto pandas DataFrame com os dados da planilha, ou `None` se o arquivo não existir.
+  """
+
+  # Verificar se o arquivo existe
+  if not os.path.exists(arquivo):
+    return None
+
+  # Verificar o formato do arquivo
+  try:
+    format = pd.guess_format(arquivo)
+  except ValueError as e:
+    return None
+
+  if format is None:
+    return None
+
+  # Importar o arquivo
+  if format == "xls":
+    df = pd.read_excel(arquivo)
+  elif format == "csv":
+    df = pd.read_csv(arquivo)
+
+  return df
+
+def analisar_dados(df):
+  """
+  Analisa os dados da planilha e retorna um DataFrame com os casos vencidos.
+
+  Args:
+    df: O objeto pandas DataFrame com os dados da planilha.
+
+  Returns:
+    O DataFrame com os casos vencidos.
+  """
+
+  # Importar o módulo datetime
+  import datetime
+
+  def importar_planilha(arquivo):
+    """
+    Importa uma planilha em qualquer formato (.xls ou .csv, por exemplo).
+
+    Args:
+      arquivo: O caminho para o arquivo da planilha.
+
+    Returns:
+      O objeto pandas DataFrame com os dados da planilha, ou `None` se o arquivo não existir.
+    """
+
+    # Verificar se o arquivo existe
+    if not os.path.exists(arquivo):
+      return None
+
+    # Verificar o formato do arquivo
+    try:
+      format = pd.guess_format(arquivo)
+    except ValueError as e:
+      return None
+
+    if format is None:
+      return None
+
+    # Importar o arquivo
+    if format == "xls":
+      df = pd.read_excel(arquivo)
+    elif format == "csv":
+      df = pd.read_csv(arquivo)
+
+    return df
+
+  def analisar_dados(df):
+    """
+    Analisa os dados da planilha e retorna um DataFrame com os casos vencidos.
+
+    Args:
+      df: O objeto pandas DataFrame com os dados da planilha.
+
+    Returns:
+      O DataFrame com os casos vencidos.
+    """
+
+    # Importar o módulo datetime
+    import datetime
+
+    # Obter a data atual
+    data_atual = datetime.datetime.today()
+
+    # Verificar se o DataFrame é válido
+    if df is not None:
+      df_vencidos = df[df["Data de prazo"] <= data_atual]
+    else:
+      print("Arquivo não encontrado.")
+
+    # Filtrar os casos vencidos
+    return df_vencidos
+
+  # Função principal
+  def main():
+    # Importar a planilha
+    arquivo = os.path.join(APP_PATH, "planilha.xlsx")
+    df = importar_planilha(arquivo)
+
+    # Analisar os dados
+    df_vencidos = analisar_dados(df)
+
+    # Enviar e-mail
+    enviar_email(df_vencidos)
+
+  def enviar_email(df_vencidos):
+    """
+    Envia um e-mail com os casos vencidos.
+
+    Args:
+      df_vencidos: O DataFrame com os casos vencidos.
+    """
+
+    # Criar um objeto SMTP
+    smtp = smtplib.SMTP("smtp.gmail.com", 587)
+
+    # Habilitar criptografia TLS
+    smtp.starttls()
+
+    # Fazer login no servidor de e-mail
+    smtp.login("meuemail@gmail.com", "meu_senha")
+
+    # Enviar o e-mail
+    assunto = "Casos vencidos"
+    mensagem = "Anexo os casos vencidos."
+    smtp.sendmail("meuemail@gmail.com", "destinatario@gmail.com", f"Subject: {assunto}\n\n{mensagem}\n\n{df_vencidos.to_csv()}")
+
+    # Fechar a conexão
+    smtp.quit()
+
+  if __name__ == "__main__":
+    main()
